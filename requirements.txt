@@ -1,9 +1,13 @@
 asgiref==3.2.7
+dj-database-url==0.5.0
 Django==3.0.5
 django-cors-headers==3.2.1
 django-rest-auth==0.9.5
 djangorestframework==3.11.0
+gunicorn==20.0.4
 pkg-resources==0.0.0
 pytz==2019.3
 six==1.14.0
 sqlparse==0.3.1
+whitenoise==5.0.1
+psycopg2-binary==t2.8.5
