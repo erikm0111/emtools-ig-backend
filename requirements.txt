@@ -10,4 +10,4 @@ pytz==2019.3
 six==1.14.0
 sqlparse==0.3.1
 whitenoise==5.0.1
-psycopg2-binary==t2.8.5
+psycopg2-binary==2.8.5
