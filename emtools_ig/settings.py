@@ -28,7 +28,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 't-q!cw&#@p473v1tpz9l8v64mf)5j7
 # DEBUG = True
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['protected-plateau-81049.herokuapp.com', '127.0.0.1']
 
 CORS_ORIGIN_ALLOW_ALL = True
 
