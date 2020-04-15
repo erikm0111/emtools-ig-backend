@@ -64,3 +64,69 @@ class IdentificationNumber(models.Model):
 
     def __str__(self):
         return self.description
+
+
+
+def increment_ssn_number():
+    last_ssn = SSN.objects.all().order_by('id').last()
+    if not last_ssn:
+        return 'SSN' + '1001'
+    ssn_id = last_ssn.ssn_id
+    ssn_int = int(ssn_id[3:7])
+    new_ssn_int = ssn_int + 1
+    new_ssn_id = 'SSN' + str(new_ssn_int).zfill(4)
+    return new_ssn_id
+
+# shema spajanja namota - SSN
+class SSN(models.Model):
+    ssn_id = models.CharField(max_length=7, default=increment_ssn_number, editable=False)
+    description = models.CharField(max_length=100, blank=True)
+    date_created = models.DateTimeField(auto_now_add=True)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='ssn', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.description
+
+
+
+def increment_project_number():
+    last_project = Project.objects.all().order_by('id').last()
+    if not last_project:
+        return 'PR' + '3100'
+    project_id = last_project.project_id
+    project_int = int(project_id[2:6])
+    new_project_int = project_int + 1
+    new_project_id = 'PR' + str(new_project_int).zfill(4)
+    return new_project_id
+
+# projekt - PR
+class Project(models.Model):
+    project_id = models.CharField(max_length=6, default=increment_project_number, editable=False)
+    description = models.CharField(max_length=100, blank=True)
+    date_created = models.DateTimeField(auto_now_add=True)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='projects', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.description
+
+
+
+def increment_master_list_number():
+    last_master_list = MasterList.objects.all().order_by('id').last()
+    if not last_master_list:
+        return 'ML' + '1001'
+    master_list_id = last_master_list.master_list_id
+    master_list_int = int(master_list_id[2:6])
+    new_master_list_int = master_list_int + 1
+    new_master_list_id = 'ML' + str(new_master_list_int).zfill(4)
+    return new_master_list_id
+
+# projekt - PR
+class MasterList(models.Model):
+    master_list_id = models.CharField(max_length=6, default=increment_master_list_number, editable=False)
+    description = models.CharField(max_length=100, blank=True)
+    date_created = models.DateTimeField(auto_now_add=True)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='masterlists', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.description

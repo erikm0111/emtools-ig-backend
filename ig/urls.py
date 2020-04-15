@@ -6,6 +6,9 @@ router = routers.DefaultRouter()
 router.register(r'schemes', views.SchemeViewSet)
 router.register(r'compdata', views.ComputationDataViewSet)
 router.register(r'idnumbers', views.IdentificationNumberViewSet)
+router.register(r'projects', views.ProjectViewSet)
+router.register(r'ssns', views.SSNViewSet)
+router.register(r'masterlists', views.MasterListViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
