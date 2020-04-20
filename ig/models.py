@@ -1,6 +1,23 @@
 from django.db import models
 from django.conf import settings
 
+class RevisionChoices(models.TextChoices):
+    A = 'A',
+    B = 'B',
+    C = 'C',
+    D = 'D',
+    E = 'E',
+    F = 'F',
+    G = 'G',
+    H = 'H',
+    I = 'I',
+    J = 'J',
+    K = 'K',
+    L = 'L',
+    M = 'M',
+    N = 'N'
+
+
 def increment_scheme_number():
     last_scheme = Scheme.objects.all().order_by('id').last()
     if not last_scheme:
@@ -16,6 +33,8 @@ class Scheme(models.Model):
     scheme_id = models.CharField(max_length=7, default=increment_scheme_number, editable=False)
     description = models.CharField(max_length=100, blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
+    revision = models.CharField(max_length=1, choices=RevisionChoices.choices, blank=True, default=None, null=True)
+    archived = models.BooleanField(default=False)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='schemes', on_delete=models.CASCADE)
 
     def __str__(self):
@@ -38,6 +57,8 @@ class ComputationData(models.Model):
     comp_data_id = models.CharField(max_length=6, default=increment_computation_data_number, editable=False)
     description = models.CharField(max_length=100, blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
+    revision = models.CharField(max_length=1, choices=RevisionChoices.choices, blank=True, default=None, null=True)
+    archived = models.BooleanField(default=False)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='computation_data', on_delete=models.CASCADE)
 
     def __str__(self):
@@ -60,6 +81,8 @@ class IdentificationNumber(models.Model):
     id_number_id = models.CharField(max_length=8, default=increment_id_number, editable=False)
     description = models.CharField(max_length=100, blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
+    revision = models.CharField(max_length=1, choices=RevisionChoices.choices, blank=True, default=None, null=True)
+    archived = models.BooleanField(default=False)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='id_numbers', on_delete=models.CASCADE)
 
     def __str__(self):
@@ -82,6 +105,8 @@ class SSN(models.Model):
     ssn_id = models.CharField(max_length=7, default=increment_ssn_number, editable=False)
     description = models.CharField(max_length=100, blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
+    revision = models.CharField(max_length=1, choices=RevisionChoices.choices, blank=True, default=None, null=True)
+    archived = models.BooleanField(default=False)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='ssn', on_delete=models.CASCADE)
 
     def __str__(self):
@@ -104,6 +129,8 @@ class Project(models.Model):
     project_id = models.CharField(max_length=6, default=increment_project_number, editable=False)
     description = models.CharField(max_length=100, blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
+    revision = models.CharField(max_length=1, choices=RevisionChoices.choices, blank=True, default=None, null=True)
+    archived = models.BooleanField(default=False)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='projects', on_delete=models.CASCADE)
 
     def __str__(self):
@@ -126,6 +153,8 @@ class MasterList(models.Model):
     master_list_id = models.CharField(max_length=6, default=increment_master_list_number, editable=False)
     description = models.CharField(max_length=100, blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
+    revision = models.CharField(max_length=1, choices=RevisionChoices.choices, blank=True, default=None, null=True)
+    archived = models.BooleanField(default=False)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='masterlists', on_delete=models.CASCADE)
 
     def __str__(self):

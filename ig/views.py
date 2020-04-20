@@ -14,7 +14,7 @@ class SchemeViewSet(viewsets.ModelViewSet):
         serializer.save(owner=self.request.user)
 
     def get_queryset(self):
-        return reversed(Scheme.objects.all())
+        return Scheme.objects.order_by('-id')
 
 
 class ComputationDataViewSet(viewsets.ModelViewSet):
@@ -28,7 +28,7 @@ class ComputationDataViewSet(viewsets.ModelViewSet):
         serializer.save(owner=self.request.user)
 
     def get_queryset(self):
-        return reversed(ComputationData.objects.all())
+        return ComputationData.objects.order_by('-id')
 
 
 class IdentificationNumberViewSet(viewsets.ModelViewSet):
@@ -42,7 +42,7 @@ class IdentificationNumberViewSet(viewsets.ModelViewSet):
         serializer.save(owner=self.request.user)
 
     def get_queryset(self):
-        return reversed(IdentificationNumber.objects.all())
+        return IdentificationNumber.objects.order_by('-id')
 
 
 class ProjectViewSet(viewsets.ModelViewSet):
@@ -56,7 +56,7 @@ class ProjectViewSet(viewsets.ModelViewSet):
         serializer.save(owner=self.request.user)
 
     def get_queryset(self):
-        return reversed(Project.objects.all())
+        return Project.objects.order_by('-id')
 
 
 class SSNViewSet(viewsets.ModelViewSet):
@@ -70,7 +70,7 @@ class SSNViewSet(viewsets.ModelViewSet):
         serializer.save(owner=self.request.user)
 
     def get_queryset(self):
-        return reversed(SSN.objects.all())
+        return SSN.objects.order_by('-id')
 
 
 class MasterListViewSet(viewsets.ModelViewSet):
@@ -84,6 +84,5 @@ class MasterListViewSet(viewsets.ModelViewSet):
         serializer.save(owner=self.request.user)
 
     def get_queryset(self):
-        return reversed(MasterList.objects.all())
-
+        return MasterList.objects.order_by('-id')
 
