@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.db import transaction
 
 class RevisionChoices(models.TextChoices):
     A = 'A',
@@ -19,7 +20,7 @@ class RevisionChoices(models.TextChoices):
 
 
 def increment_scheme_number():
-    last_scheme = Scheme.objects.all().order_by('id').last()
+    last_scheme = Scheme.objects.select_for_update().all().order_by('id').last()
     if not last_scheme:
         return 'D' + '102000'
     scheme_id = last_scheme.scheme_id
@@ -43,7 +44,7 @@ class Scheme(models.Model):
 
 
 def increment_computation_data_number():
-    last_comp_data = ComputationData.objects.all().order_by('id').last()
+    last_comp_data = ComputationData.objects.select_for_update().all().order_by('id').last()
     if not last_comp_data:
         return 'CD' + '1100'
     comp_data_id = last_comp_data.comp_data_id
@@ -67,7 +68,7 @@ class ComputationData(models.Model):
 
 
 def increment_id_number():
-    last_id_number = IdentificationNumber.objects.all().order_by('id').last()
+    last_id_number = IdentificationNumber.select_for_update().objects.all().order_by('id').last()
     if not last_id_number:
         return 'ID' + '100001'
     id_number_id = last_id_number.id_number_id
@@ -91,7 +92,7 @@ class IdentificationNumber(models.Model):
 
 
 def increment_ssn_number():
-    last_ssn = SSN.objects.all().order_by('id').last()
+    last_ssn = SSN.objects.select_for_update().all().order_by('id').last()
     if not last_ssn:
         return 'SSN' + '1001'
     ssn_id = last_ssn.ssn_id
@@ -115,7 +116,7 @@ class SSN(models.Model):
 
 
 def increment_project_number():
-    last_project = Project.objects.all().order_by('id').last()
+    last_project = Project.objects.select_for_update().all().order_by('id').last()
     if not last_project:
         return 'PR' + '3100'
     project_id = last_project.project_id
@@ -139,7 +140,7 @@ class Project(models.Model):
 
 
 def increment_master_list_number():
-    last_master_list = MasterList.objects.all().order_by('id').last()
+    last_master_list = MasterList.select_for_update().objects.all().order_by('id').last()
     if not last_master_list:
         return 'ML' + '1001'
     master_list_id = last_master_list.master_list_id
