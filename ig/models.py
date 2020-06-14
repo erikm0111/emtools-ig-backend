@@ -68,7 +68,7 @@ class ComputationData(models.Model):
 
 
 def increment_id_number():
-    last_id_number = IdentificationNumber.select_for_update().objects.all().order_by('id').last()
+    last_id_number = IdentificationNumber.objects.select_for_update().all().order_by('id').last()
     if not last_id_number:
         return 'ID' + '100001'
     id_number_id = last_id_number.id_number_id
@@ -140,7 +140,7 @@ class Project(models.Model):
 
 
 def increment_master_list_number():
-    last_master_list = MasterList.select_for_update().objects.all().order_by('id').last()
+    last_master_list = MasterList.objects.select_for_update().all().order_by('id').last()
     if not last_master_list:
         return 'ML' + '1001'
     master_list_id = last_master_list.master_list_id
