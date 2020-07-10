@@ -1,8 +1,8 @@
 from rest_framework import viewsets
 from django.db import transaction
 
-from .serializers import SchemeSerializer, ComputationDataSerializer, IdentificationNumberSerializer, ProjectSerializer, MasterListSerializer, SSNSerializer
-from .models import Scheme, ComputationData, IdentificationNumber, Project, SSN, MasterList
+from .serializers import SchemeSerializer, ComputationDataSerializer, IdentificationNumberSerializer, ProjectSerializer, MasterListSerializer, SSNSerializer, QInquirySerializer
+from .models import Scheme, ComputationData, IdentificationNumber, Project, SSN, MasterList, QInquiry
 
 
 class SchemeViewSet(viewsets.ModelViewSet):
@@ -99,4 +99,20 @@ class MasterListViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return MasterList.objects.order_by('-id')
+
+
+class QInquiryViewSet(viewsets.ModelViewSet):
+    queryset = QInquiry.objects.all()
+    serializer_class = QInquirySerializer
+
+    @transaction.atomic
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
+    @transaction.atomic
+    def perform_update(self, serializer):
+        serializer.save(owner=self.request.user)
+
+    def get_queryset(self):
+        return QInquiry.objects.order_by('-id')
 

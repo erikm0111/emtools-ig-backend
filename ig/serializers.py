@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Scheme, ComputationData, IdentificationNumber, Project, MasterList, SSN
+from .models import Scheme, ComputationData, IdentificationNumber, Project, MasterList, SSN, QInquiry
 
 class SchemeSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
@@ -53,5 +53,14 @@ class MasterListSerializer(serializers.ModelSerializer):
         model = MasterList
         fields = ('id', 'master_list_id', 'description', 'date_created', 'owner', 'revision', 'archived')
         read_only_fields = ('id', 'master_list_id', 'date_created', 'owner')
+
+
+class QInquirySerializer(serializers.ModelSerializer):
+    owner = serializers.ReadOnlyField(source='owner.username')
+
+    class Meta:
+        model = QInquiry
+        fields = ('id', 'q_inquiry_id', 'description', 'date_created', 'owner', 'revision', 'archived')
+        read_only_fields = ('id', 'q_inquiry_id', 'date_created', 'owner')
 
 

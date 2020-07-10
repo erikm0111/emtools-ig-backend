@@ -160,3 +160,26 @@ class MasterList(models.Model):
 
     def __str__(self):
         return self.description
+
+
+def increment_q_inquiry_number():
+    last_q_inquiry = QInquiry.objects.select_for_update().all().order_by('id').last()
+    if not last_q_inquiry:
+        return 'Q' + '100001'
+    q_inquiry_id = last_q_inquiry.q_inquiry_id
+    q_inquiry_int = int(q_inquiry_id[1:7])
+    new_q_inquiry_int = q_inquiry_int + 1
+    new_q_inquiry_id = 'Q' + str(new_q_inquiry_int).zfill(6)
+    return new_q_inquiry_id
+
+# projekt - PR
+class QInquiry(models.Model):
+    q_inquiry_id = models.CharField(max_length=6, default=increment_q_inquiry_number, editable=False)
+    description = models.CharField(max_length=100, blank=True)
+    date_created = models.DateTimeField(auto_now_add=True)
+    revision = models.CharField(max_length=1, choices=RevisionChoices.choices, blank=True, default=None, null=True)
+    archived = models.BooleanField(default=False)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='qinquiries', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.description

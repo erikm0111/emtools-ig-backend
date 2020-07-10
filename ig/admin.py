@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Scheme, ComputationData, IdentificationNumber, Project, SSN, MasterList
+from .models import Scheme, ComputationData, IdentificationNumber, Project, SSN, MasterList, QInquiry
 
 
 class SchemeAdmin(admin.ModelAdmin):
@@ -38,6 +38,12 @@ class MasterListAdmin(admin.ModelAdmin):
     list_filter = ['date_created', 'owner', 'revision', 'archived']
     search_fields = ['master_list_id', 'description']
 
+class QInquiryAdmin(admin.ModelAdmin):
+    fieldsets = None
+    list_display = ('q_inquiry_id', 'description', 'date_created', 'owner', 'revision', 'archived')
+    list_filter = ['date_created', 'owner', 'revision', 'archived']
+    search_fields = ['q_inquiry_id', 'description']
+
 
 admin.site.register(Scheme, SchemeAdmin)
 admin.site.register(ComputationData, ComputationDataAdmin)
@@ -45,3 +51,4 @@ admin.site.register(IdentificationNumber, IdentificationNumberAdmin)
 admin.site.register(Project, ProjectAdmin)
 admin.site.register(SSN, SSNAdmin)
 admin.site.register(MasterList, MasterListAdmin)
+admin.site.register(QInquiry, QInquiryAdmin)
