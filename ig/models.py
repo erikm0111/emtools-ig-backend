@@ -172,9 +172,9 @@ def increment_q_inquiry_number():
     new_q_inquiry_id = 'Q' + str(new_q_inquiry_int).zfill(6)
     return new_q_inquiry_id
 
-# projekt - PR
+# upiti - Q
 class QInquiry(models.Model):
-    q_inquiry_id = models.CharField(max_length=6, default=increment_q_inquiry_number, editable=False)
+    q_inquiry_id = models.CharField(max_length=7, default=increment_q_inquiry_number, editable=False)
     description = models.CharField(max_length=100, blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
     revision = models.CharField(max_length=1, choices=RevisionChoices.choices, blank=True, default=None, null=True)
