@@ -183,3 +183,25 @@ class QInquiry(models.Model):
 
     def __str__(self):
         return self.description
+
+def increment_technological_doc_number():
+    last_technological_doc = TechnologicalDoc.objects.select_for_update().all().order_by('id').last()
+    if not last_technological_doc:
+        return 'TD' + '10001'
+    technological_doc_id = last_technological_doc.technological_doc_id
+    technological_doc_int = int(technological_doc_id[2:7])
+    new_technological_doc_int = technological_doc_int + 1
+    new_technological_doc_id = 'TD' + str(new_technological_doc_int).zfill(5)
+    return new_technological_doc_id
+
+# tehnoloski dokument - TD
+class TechnologicalDoc(models.Model):
+    technological_doc_id = models.CharField(max_length=7, default=increment_technological_doc_number, editable=False)
+    description = models.CharField(max_length=100, blank=True)
+    date_created = models.DateTimeField(auto_now_add=True)
+    revision = models.CharField(max_length=1, choices=RevisionChoices.choices, blank=True, default=None, null=True)
+    archived = models.BooleanField(default=False)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='technological_docs', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.description

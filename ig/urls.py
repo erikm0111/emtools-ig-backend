@@ -10,6 +10,7 @@ router.register(r'projects', views.ProjectViewSet)
 router.register(r'ssns', views.SSNViewSet)
 router.register(r'masterlists', views.MasterListViewSet)
 router.register(r'qinquiries', views.QInquiryViewSet)
+router.register(r'technologicaldocs', views.TechnologicalDocViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
